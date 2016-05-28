@@ -2,8 +2,11 @@ md-content {
 	overflow: hidden;
 }
 body {
-	font-size: 14px;
-	font-family: "noto";
+    font-family: 'Roboto', sans-serif;
+    font-weight:400;
+    font-size : 14px;
+    line-height : 24px;
+    font-style: normal;
 }
 .lgn {
 	min-width: 300px;
@@ -23,3 +26,35 @@ th,td {
 .minhgt {
 	min-height: 100%;
 }
+
+.wrapper{
+    min-height: 100%;
+}
+
+.wrapper._add-padng > *:not(md-toast):first-child {
+    padding-top : 64px;
+    background : #F5F5F5;
+    min-height : 100%;
+}
+
+.wrapper.popup{
+    width: 100%;
+    max-width: 640px;
+}
+
+#mainHeader {
+    position : relative;
+    left: 0;
+    z-index : 81;
+}
+#mainHeader._fix {
+    position : fixed;
+    top : -64px;
+    transition : top .15s ease-in;
+    -webkit-transition : top .15s ease-in;
+    -moz-transition : top .15s ease-in;
+}
+#mainHeader._fix._sticky {
+    top : 0;
+}
+

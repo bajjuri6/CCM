@@ -1,37 +1,32 @@
-
-<div layout="row"  layout-align="center center" style="height:100%">
-  <div layout="column" layout-align="center center" >
-    <div  layout="row" layout-align="center center" >
-    <div class="md-whiteframe-z1 lgn" ng-controller="lgn_controller" layout="column" layout-align="">
-      <md-toolbar >
-        <div class="md-toolbar-tools">
-          Login
-        </div>
-      </md-toolbar>
-      <md-content layout="column" class="md-padding">
-        <form name="lgnfrm" action="login.php" method="post" >
-          <md-input-container class="md-block">
-            <label class="md-accent">username</label>
-            <input type="text" md-maxlength="30" required  name="username" ng-model="lgnfrm_username">
-            <div ng-messages="lgnfrm.username.$error">
-              <div ng-message="required">username is required.</div>
-              <div ng-message="md-maxlength">The username has to be less than 30 characters long.</div>
-            </div>  
-          </md-input-container>
-          <md-input-container class="md-block">
-            <label>Password</label>
-            <input type="password" md-maxlength="30" required name="pwd" ng-model="lgnfrm_pwd">
-            <div ng-messages="lgnfrm.pwd.$error">
-              <div ng-message="required">password is required.</div>
-              <div ng-message="md-maxlength">The password has to be less than 30 characters long.</div>
-            </div>
-          </md-input-container>
-          <div layout layout-align="center center">
-              <md-button type="submit" class="md-raised md-primary"  name="login">submit</md-button>
-          </div>
-        </form>
+<div class="wrapper" flex layout="column" fix-nav>
+  <div layout="column" flex id="lgn-bx" class="popup" ng-controller="LoginController">
+      <md-content flex layout="row" layout-align="center center">
+          <section flex="40" layout-padding layout="column" class="md-whiteframe-1dp">
+              <h2 align="center">Login</h2>
+              <div layout layout-align="center center">
+                  <form name="lgnForm" flex="80" id="lgnForm" novalidate ng-submit="logIn(lgnForm.$valid)">
+                  <div layout="column" flex="100">
+                      <md-input-container class="md-block" flex>
+                              <label>Username</label>
+                              <input id="lgnMblNm" name="lgnMblNm" ng-model="lgnPrms.lgnMblNm" class="_mbl-nm" type="text" required>
+                              <div ng-messages="lgnForm.lgnMblNm.$error">
+                                  <div ng-message="required" ng-show="lgnForm.lgnMblNm.$error.required">Please enter your username</div>
+                              </div>
+                          </md-input-container>
+                      <md-input-container class="md-block" flex>
+                          <label>Password</label>
+                          <input id="lgnPwd" name="lgnPwd" ng-model="lgnPrms.lgnPwd" type="password" required>
+                          <div ng-messages="lgnForm.lgnPwd.$error">
+                              <div ng-message="required" ng-show="lgnForm.lgnPwd.$error.required">Please enter your password</div>
+                          </div>
+                      </md-input-container>
+                      <div layout="row" flex layout-align="center center">
+                          <md-button flex-gt-xs="40" flex-xs="100" type="submit" class="md-raised md-primary md-hue-2">Start</md-button>
+                      </div>
+                    </div>
+                </form>
+              </div>
+          </section>
       </md-content>
-      </div>  
-    </div> 
   </div>
 </div>
