@@ -58,6 +58,14 @@ class Bootstrap {
             require APP_PATH . '/models/Lead.php';
             echo (new Lead())->getLeads();  
          }
+         elseif ($url[0] == 'aprvld') {
+            require APP_PATH . '/models/Lead.php';
+            echo (new Lead())->approveLeads();  
+         }
+         elseif ($url[0] == 'dltld') {
+            require APP_PATH . '/models/Lead.php';
+            echo (new Lead())->approveLeads();  
+         }
     }
 
 }
