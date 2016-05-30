@@ -55,7 +55,22 @@ app.directive('fixNav', function () {
         }
     }
 });
-
+app.directive('ccmHtml', function () {
+    return {
+        restrict: 'AC',
+        scope: {
+            "ccmHtml": "="
+        },
+        link: function (scope, elem, attr) {
+            scope.$watch('ccmHtml', function (nt, ot) {
+                if (nt != "" && nt)
+                {
+                    elem.html(nt.replace(/(?:\r\n|\r|\n)/g, '<br />'));
+                }
+            });
+        }
+    };
+});
 app.controller('ToastController', ['$scope', '$mdToast',
     function ($scope, $mdToast) {
         var last = {
@@ -271,19 +286,28 @@ app.controller("LeadController", ["$scope", "CCMAPI", "$controller", "manageLead
         var self = this;
         $controller('ToastController', {$scope: $scope});
         $controller('DialogController', {$scope: $scope});
-        
+
+        $scope.setupLeads = function () {
+            CCMAPI.postData({}, "gtlds").success(function (res) {
+                if (res.status == 1)
+                    $scope.leads = res.msg;
+            });
+
+            manageLead.set($scope);
+        };
+
         $scope.cust = {
-            "biz" : {cards : "y", sales : "", since : "", premises : "", nature : "", phone : ""}
+            "biz": {cards: "y", sales: "", since: "", premises: "", nature: "", phone: ""}
         };
 
         self.cstOcp = [[{name: "Proprietary company", val: 4}, {name: "Partnership Company", val: 5}, {name: "Private Limited Company", val: 6}], [{name: "Proprietary Company", val: 7}, {name: "Private Limited Company", val: 8}, {name: "Government", val: 9}], [{name: "Doctor", val: 10}, {name: "Architect", val: 11}, {name: "CA", val: 12}]];
 
         $scope.$watch('cust.occupation', function (nv, ov) {
-            if(nv != ov && nv)
+            if (nv != ov && nv)
             {
-                $scope.subOcp = self.cstOcp[parseInt(nv)-1];
-                
-                if(nv == 1)
+                $scope.subOcp = self.cstOcp[parseInt(nv) - 1];
+
+                if (nv == 1)
                     $scope.cust.biz.cards = 'y';
                 else
                     $scope.cust.biz.cards = 'n';
@@ -295,17 +319,87 @@ app.controller("LeadController", ["$scope", "CCMAPI", "$controller", "manageLead
 //            return self.cstOcp[parseInt($scope.cust.occupation) + 1];
 //        };
 
+        $scope.setOcpt = function (typ) {
+            return typ == 1 ? "Self Employed" : (typ == 2 ? "Employee" : "Professional");
+        };
+
+        $scope.setSubOcpt = function (ocpTyp, subOcpTyp) {
+            var subOcpt = self.cstOcp[ocpTyp - 1];
+            var txt = '';
+            for (var s = 0; s < subOcpt.length; s++)
+            {
+                if (subOcpt[s]['val'] == parseInt(subOcpTyp))
+                {
+                    txt = subOcpt[s]['name'];
+                    break;
+                }
+            }
+
+            return txt;
+        };
+
+        $scope.bldBizTxt = function (indx) {
+            var lead = $scope['leads'][indx];
+            if (lead.occupation == 1)
+            {
+                var biz = typeof lead['biz'] == 'string' ? JSON.parse(lead['biz']) : lead['biz'];
+                return "<span>Accepts Cards : " + (biz.cards == 'y' ? "Yes" : "No") + "</span><br>" +
+                        "<span>Monthly Card Sales : " + (biz.sales) + "</span><br>" +
+                        "<span>PoS Business Since: " + (biz.since) + "</span><br>" +
+                        "<span>Business Premises : " + (biz.premises == 1 ? "Owned" : "Rented") + "</span><br>" +
+                        "<span>Nature of Business : " + (biz.nature) + "</span><br>" +
+                        "<span>Business Phone : " + biz.phone + "</span><br>";
+            }
+            else
+                return "";
+        };
+
+
+
+        self.parScope = null;
         $scope.addNewLead = function (event) {
             $scope.loadDialog('newlead', event, true);
         };
-        
-        $scope.saveLead = function(isValid) {
-            if(isValid)
+
+        $scope.setupLeadForm = function () {
+            self.parScope = manageLead.get();
+        };
+
+        $scope.saveLead = function (isValid) {
+            if (isValid)
             {
-                CCMAPI.postData($scope.cust,"adld").success(function(res){
-                  console.log(res);  
+                CCMAPI.postData($scope.cust, "adld").success(function (res) {
+                    if (res.status == 1)
+                    {
+                        self.parScope.leads.push($scope.cust);
+                        $scope.cancel();
+                    }
+                    else
+                        $scope.showSimpleToast("Something is not right here. Please try again!");
                 });
             }
+        };
+
+        $scope.apprvLd = function (id, indx, ev) {
+            ev.preventDefault();
+            $scope.confirmDialog(ev, "Confirmation Required", 'Please click "Approve" button to confirm', "Approve", "Cancel").then(function () {
+                CCMAPI.postData({id: id}, "aprvld").success(function () {
+                    $scope.showSimpleToast("Approved");
+                    angular.element(ev.currentTarget).remove();
+                });
+            });
+        };
+
+        $scope.dltLd = function (id, indx, ev) {
+            ev.preventDefault();
+            $scope.confirmDialog(ev, "Delete Confirmation Required", 'Please click "Continue" button to confirm', "Continue", "Cancel").then(function () {
+                CCMAPI.postData({id: id}, "dltld").success(function (res) {
+                    if (res.status == 1) {
+                        $scope.showSimpleToast("Deleted");
+                        $scope.leads.splice(indx, 1);
+                    }
+                });
+            });
         };
 
     }]);

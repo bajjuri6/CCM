@@ -1,4 +1,4 @@
-<div class="wrapper popup" layout layout-align="center stretch" ng-controller="LeadController as lc" >
+<div class="wrapper popup" layout layout-align="center stretch" ng-controller="LeadController as lc" ng-init="setupLeadForm()">
     <div flex layout-padding>
         <md-content>
             <form name="leadsfrm" novalidate ng-submit="saveLead(leadsfrm.$valid)">

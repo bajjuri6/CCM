@@ -11,22 +11,23 @@ body {
 .lgn {
     min-width: 500px;
 }
-table, th , td  {
-    border: 1px solid grey;
-    border-collapse: collapse;
-    padding: 5px;
-}
-table {
-    min-width: 700px;
-    width: 100%;
-}
-th,td {
+th , td  {
+    border : 0;
+    border-bottom: 1px solid #9E9E9E;
+    padding: 8px;
     text-align: center;
 }
-
-.minhgt {
-    min-height: 100%;
+table {
+    width: 100%;
+    border-spacing: 0;
+    background : #FFF;
+    margin : 8px 0; 
+    border-top: 1px solid #9E9E9E;
 }
+tr:nth-child(2n) {
+    background : #F5F5F5;
+}
+
 .leads_bttn {
     text-transform: none;
     font-size: 0.8em;
@@ -68,7 +69,6 @@ md-input-container label span.lacs_per_user {
 
 .wrapper._add-padng > *:not(md-toast):first-child {
     padding-top : 64px;
-    background : #F5F5F5;
     min-height : 100%;
 }
 
@@ -96,4 +96,11 @@ md-dialog {
     min-width : 480px;
     max-height: 90% !important;
     max-width : 72%;
+}
+a._act-btn, .popup a:not(.close) {
+    font-size : 0.9285em;
+    text-decoration : none;
+}
+.popup a:not(.close), a._act-btn{ 
+    color : #2196f3;
 }
