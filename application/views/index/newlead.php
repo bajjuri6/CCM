@@ -24,7 +24,7 @@
             </div>  
         </md-input-container>
         <label class="lable_clr" >Customer Occupation</label>
-        <md-input-container ng-init="group='self'" class="md-block">
+        <md-input-container ng-init="group='self'" class="md-block" >
             <md-select  name="occupation" required ng-model="cust.occupation" >
                 <md-option  value="1">Self Employed</md-option>
                 <md-option  value="2">Employee</md-option>

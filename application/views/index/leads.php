@@ -1,4 +1,3 @@
-
 <div layout="column" layout-align="space-between stretch" class="minhgt" ng-controller="LeadController" >
     <md-content>
         <div layout="column" layout-align="center center">
@@ -7,8 +6,7 @@
                 <md-button class="md-raised md-hue-2 md-primary" ng-click="addNewLead($event)">New Lead</md-button>
             </div>
 
-            <div class="md-padding"></div>
-            <div>
+            <div layout-padding layout-margin>
                 <table>
                   <tr>
                       <th>Customer Name</th>
@@ -31,11 +29,10 @@
                       <td ng-bind="user.biz"></td>
                       <td ng-bind="user.pan"></td>
                       <td ng-bind="user.aadhaar"></td>
-<!--	                    <td>
-                          <a href="" ng-click="editUser($index, $event)">suspend</a>
-                          <a href="">delete</a>
-                          <a href="" ng-click="editUser($index, $event)">edit</a>
-                      </td>-->
+	                    <td>
+                          <a href="" ng-click="approveLead($index, $event)">Approve</a>
+                          <a href="" ng-click="rejectLead($index, $event)">Reject</a>
+                      </td>
                   </tr>
               </table>
             </div>

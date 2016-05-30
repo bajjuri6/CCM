@@ -274,6 +274,8 @@ app.controller("LeadController",["$scope", "CCMAPI", "$controller", "manageLead"
         $scope.addNewLead = function (event){
             $scope.loadDialog('newlead', event, true);
         }
+        
+        
     }]);
 app.factory('CCMAPI', ['$http',  function ($http) {
   
