@@ -1,5 +1,5 @@
 md-content {
-	overflow: hidden;
+    overflow: hidden;
 }
 body {
     font-family: 'Roboto', sans-serif;
@@ -9,12 +9,12 @@ body {
     font-style: normal;
 }
 .lgn {
-	min-width: 500px;
+    min-width: 500px;
 }
 table, th , td  {
-  border: 1px solid grey;
-  border-collapse: collapse;
-  padding: 5px;
+    border: 1px solid grey;
+    border-collapse: collapse;
+    padding: 5px;
 }
 table {
     min-width: 700px;
@@ -39,25 +39,25 @@ md-input-container label span.lacs_per_user {
 }
 @media all and (max-width:600px) {
     .lgn {
-	min-width: 280px;
+        min-width: 280px;
         width: 280px;
     }
     table {
-	min-width: 300px;
+        min-width: 300px;
         width: 100%;
     }
     body {
         overflow-x: hidden;
     }
     .leads_bttn {
-    text-transform: none;
-    font-size: 0.6em;
-    letter-spacing: normal;
-}
+        text-transform: none;
+        font-size: 0.6em;
+        letter-spacing: normal;
+    }
 }
 @media all and (min-width:600px) and (max-width:960px) {
     table {
-	min-width: 500px;
+        min-width: 500px;
         width:100%;
     }
 }
@@ -80,7 +80,7 @@ md-input-container label span.lacs_per_user {
 #mainHeader {
     position : relative;
     left: 0;
-    z-index : 81;
+    z-index : 79;
 }
 #mainHeader._fix {
     position : fixed;
@@ -92,4 +92,8 @@ md-input-container label span.lacs_per_user {
 #mainHeader._fix._sticky {
     top : 0;
 }
-
+md-dialog {
+    min-width : 480px;
+    max-height: 90% !important;
+    max-width : 72%;
+}

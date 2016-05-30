@@ -1,41 +1,41 @@
-var app = angular.module("ccmApp",['ngMaterial','ngMessages']);
+var app = angular.module("ccmApp", ['ngMaterial', 'ngMessages']);
 
-app.config(function($mdThemingProvider) {
+app.config(function ($mdThemingProvider) {
     var white = $mdThemingProvider.extendPalette('grey', {
-    '400': 'FFFFFF',
-    'A400': 'FFFFFF',
-    '200': 'CCCCCC',
-    'A200': 'CCCCCC'
-});
+        '400': 'FFFFFF',
+        'A400': 'FFFFFF',
+        '200': 'CCCCCC',
+        'A200': 'CCCCCC'
+    });
 
-$mdThemingProvider.definePalette('white', white);
-$mdThemingProvider.theme('default')
-    .primaryPalette('blue',{
-        'default': '500'
-    })
-    .accentPalette('white')
+    $mdThemingProvider.definePalette('white', white);
+    $mdThemingProvider.theme('default')
+            .primaryPalette('blue', {
+                'default': '500'
+            })
+            .accentPalette('white')
 });
 
 /* Services */
-app.service('manageUser', function(){
+app.service('manageUser', function () {
     var $scope = null;
     return {
-        set : function(scope) {
+        set: function (scope) {
             $scope = scope;
         },
-        get : function() {
+        get: function () {
             return $scope;
         }
     }
 });
 
-app.service('manageLead', function(){
+app.service('manageLead', function () {
     var $scope = null;
     return {
-        set : function(scope) {
+        set: function (scope) {
             $scope = scope;
         },
-        get : function() {
+        get: function () {
             return $scope;
         }
     }
@@ -177,128 +177,160 @@ function PanelController($scope, $mdDialog) {
     };
 }
 
-app.controller("LoginController",["$scope", "CCMAPI", "$controller",
+app.controller("LoginController", ["$scope", "CCMAPI", "$controller",
     function ($scope, CCMAPI, $controller) {
-    $scope.reqLogin = false;
-    
-    $controller('ToastController', {$scope: $scope});
-    
-    $scope.logIn = function (isValid) {
-        if (isValid)
-        {
-            CCMAPI.postData(
-                    {
-                        "id": $scope.lgnPrms.lgnMblNm,
-                        "password": $scope.lgnPrms.lgnPwd
-                    }, "signin")
-                    .success(function (res) {
-                        if (res.status) {
-                            setTimeout(function () {
-                                window.location = '/leads';
-                            }, 1500);
-                        }
-                        else
-                            $scope.showSimpleToast(res.msg);
-                    }).error(function (err) {
-                $scope.showSimpleToast("Oh no! Can you please try again");
-            });
-        } else {
-            $scope.showSimpleToast("All fields are required.");
-        }
-    };
-    
-}]);
+        $scope.reqLogin = false;
 
-app.controller("UserController",["$scope", "CCMAPI", "$controller", "manageUser",
+        $controller('ToastController', {$scope: $scope});
+
+        $scope.logIn = function (isValid) {
+            if (isValid)
+            {
+                CCMAPI.postData(
+                        {
+                            "id": $scope.lgnPrms.lgnMblNm,
+                            "password": $scope.lgnPrms.lgnPwd
+                        }, "signin")
+                        .success(function (res) {
+                            if (res.status) {
+                                setTimeout(function () {
+                                    window.location = '/leads';
+                                }, 1500);
+                            }
+                            else
+                                $scope.showSimpleToast(res.msg);
+                        }).error(function (err) {
+                    $scope.showSimpleToast("Oh no! Can you please try again");
+                });
+            } else {
+                $scope.showSimpleToast("All fields are required.");
+            }
+        };
+
+    }]);
+
+app.controller("UserController", ["$scope", "CCMAPI", "$controller", "manageUser",
     function ($scope, CCMAPI, $controller, manageUser) {
         $controller('ToastController', {$scope: $scope});
         $controller('DialogController', {$scope: $scope});
-        
-        $scope.addNewUser = function (event){
+
+        $scope.addNewUser = function (event) {
             $scope.loadDialog('newuser', event, true);
         }
-        
-        $scope.saveUser = function (isValid){
-            if(isValid){
+
+        $scope.saveUser = function (isValid) {
+            if (isValid) {
                 CCMAPI.postData($scope.usr, "saveuser")
-                    .success(function (res) {
-                        if (res.status) {
-                        }
-                        else
-                            $scope.showSimpleToast(res.msg);
-                    }).error(function (err) {
+                        .success(function (res) {
+                            if (res.status) {
+                            }
+                            else
+                                $scope.showSimpleToast(res.msg);
+                        }).error(function (err) {
                     $scope.showSimpleToast("Oh no! Can you please try again");
                 });
             }
         }
-        
-        $scope.getUsers = function (){
-            CCMAPI.postData({},"getusers")
-                .success(function (res) {
-                    if (res.status) {
-                        $scope.users = res.msg;
-                    }
-                    else
-                        $scope.showSimpleToast(res.msg);
-                }).error(function (err) {
+
+        $scope.getUsers = function () {
+            CCMAPI.postData({}, "getusers")
+                    .success(function (res) {
+                        if (res.status) {
+                            $scope.users = res.msg;
+                        }
+                        else
+                            $scope.showSimpleToast(res.msg);
+                    }).error(function (err) {
                 $scope.showSimpleToast("Oh no! Can you please try again");
             });
         }
-        
-        $scope.loadUserDialog = function() {
-          var parScope = manageUser.get();
-          $scope.usr = parScope.usr;
+
+        $scope.loadUserDialog = function () {
+            var parScope = manageUser.get();
+            $scope.usr = parScope.usr;
         };
-        
-        
+
+
         $scope.status = {"1": "Active", "0": "Suspended", "-1": "Deleted"};
         $scope.lvl = {"1": "Partner", "2": "CCM Employee", "4": "Manager", "8": "Admin"};
-        
-        
-        $scope.loadUsersPage = function(){
+
+
+        $scope.loadUsersPage = function () {
             $scope.getUsers();
             manageUser.set($scope);
         }
-        
-        $scope.editUser = function(indx, event) {
-          $scope.usr = $scope.users[indx];
-          $scope.loadDialog('newuser', event, false);
+
+        $scope.editUser = function (indx, event) {
+            $scope.usr = $scope.users[indx];
+            $scope.loadDialog('newuser', event, false);
         };
     }]);
 
-app.controller("LeadController",["$scope", "CCMAPI", "$controller", "manageLead",
+app.controller("LeadController", ["$scope", "CCMAPI", "$controller", "manageLead",
     function ($scope, CCMAPI, $controller, manageLead) {
+        var self = this;
         $controller('ToastController', {$scope: $scope});
         $controller('DialogController', {$scope: $scope});
         
-        $scope.addNewLead = function (event){
+        $scope.cust = {
+            "biz" : {cards : "y", sales : "", since : "", premises : "", nature : "", phone : ""}
+        };
+
+        self.cstOcp = [[{name: "Proprietary company", val: 4}, {name: "Partnership Company", val: 5}, {name: "Private Limited Company", val: 6}], [{name: "Proprietary Company", val: 7}, {name: "Private Limited Company", val: 8}, {name: "Government", val: 9}], [{name: "Doctor", val: 10}, {name: "Architect", val: 11}, {name: "CA", val: 12}]];
+
+        $scope.$watch('cust.occupation', function (nv, ov) {
+            if(nv != ov && nv)
+            {
+                $scope.subOcp = self.cstOcp[parseInt(nv)-1];
+                
+                if(nv == 1)
+                    $scope.cust.biz.cards = 'y';
+                else
+                    $scope.cust.biz.cards = 'n';
+            }
+        });
+
+//        self.setSubOcp = function () {
+//            console.log(cust);
+//            return self.cstOcp[parseInt($scope.cust.occupation) + 1];
+//        };
+
+        $scope.addNewLead = function (event) {
             $scope.loadDialog('newlead', event, true);
-        }
+        };
         
-        
+        $scope.saveLead = function(isValid) {
+            if(isValid)
+            {
+                CCMAPI.postData($scope.cust,"adld").success(function(res){
+                  console.log(res);  
+                });
+            }
+        };
+
     }]);
-app.factory('CCMAPI', ['$http',  function ($http) {
-  
-  $http.defaults.headers.post["Content-Type"] = 'application/x-www-form-urlencoded; charset=utf-8';
-  var CCMData = {};
+app.factory('CCMAPI', ['$http', function ($http) {
 
-  CCMData.postData = function (data, url) {
-      return $http({
-          method: 'POST',
-          url:  '/' + url,
-          data: $.param(data)
-      });
-  };
+        $http.defaults.headers.post["Content-Type"] = 'application/x-www-form-urlencoded; charset=utf-8';
+        var CCMData = {};
 
-  CCMData.getData = function(url, data) {
-      var getParams = Object.keys(data).map(function(param){
-          return encodeURIComponent(param) + '=' + encodeURIComponent(data[param]);
-      }).join('&');
-      return $http({
-          method : 'GET',
-          url : '/' + url + '?' + getParams
-      });
-  };
-  return CCMData;
-  
-}]);  
+        CCMData.postData = function (data, url) {
+            return $http({
+                method: 'POST',
+                url: '/' + url,
+                data: $.param(data)
+            });
+        };
+
+        CCMData.getData = function (url, data) {
+            var getParams = Object.keys(data).map(function (param) {
+                return encodeURIComponent(param) + '=' + encodeURIComponent(data[param]);
+            }).join('&');
+            return $http({
+                method: 'GET',
+                url: '/' + url + '?' + getParams
+            });
+        };
+        return CCMData;
+
+    }]);
