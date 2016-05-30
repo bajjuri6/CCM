@@ -6,7 +6,7 @@ class Lead{
     $biz = $occupation == '1' ? $biz : '';
     $db = $this -> getDB('r', '');
     $time = time();
-    $id = md5($time.$_POST['name'].$num);
+    $id = md5($time.$_POST['name'].$phone);
     if($db->query("INSERT INTO _table_leads_ccm VALUES(".$db->quote($id).", '', ".$db->quote($name).",
                ".$db->quote($addr).", ".$db->quote($phone).", ".$db->quote($occupation).", ".$db->quote($occupationdetail).",
                ".$db->quote($biz).", ".$db->quote($income).", ".$db->quote($pan).", ".$db->quote($aadhaar).", 0, '', ".$db->quote($_SESSION['usr_id']).", ".$time.", '')")) {
