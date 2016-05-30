@@ -1,54 +1,35 @@
 <?php
 
-/**
- * userlevel -- demo(1), rcp(2), emp(3), manager(4), admin(5), owner(6)
- */
 class Lead{
     
-  public function addLead($name, $phone, $id, $password, $email, $addr, $region, $lvl){
-    $db = $this -> getDB('w', '');
-    $UId = md5($db->quote($id));
-    
-    $qs = "INSERT INTO _table_user_ccm VALUES ('$UId','$db->quote($name)', '$db->quote($phone)', "
-        . "'$db->quote($id)', 'SHA1($db->quote($password))', '$db->quote($email)', '$db->quote($addr)', "
-        . "'$db->quote($region)', 1, '$db->quote($lvl)', ".$_SESSION['usr_id'].", 'time()')";
-    
-    $result = $this -> getDB('w', '') -> exec($qs);
-
-    if($result){
+  public function addLead($name, $phone, $addr, $occupation, $occupationdetail, $biz, $income, $pan, $aadhaar){
+    $biz = $occupation == '1' ? $biz : '';
+    $db = $this -> getDB('r', '');
+    $time = time();
+    $id = md5($time.$_POST['name'].$num);
+    if($db->query("INSERT INTO _table_leads_ccm VALUES(".$db->quote($id).", '', ".$db->quote($name).",
+               ".$db->quote($addr).", ".$db->quote($phone).", ".$db->quote($occupation).", ".$db->quote($occupationdetail).",
+               ".$db->quote($biz).", ".$db->quote($income).", ".$db->quote($pan).", ".$db->quote($aadhaar).", 0, '', ".$db->quote($_SESSION['usr_id']).", ".$time.", '')")) {
       return 1;
     }
-    else{
+    else {
       return 0;
     }
   }
   
-  public function getLeads($region = null){
+  public function getLeads(){
     $db = $this -> getDB('r', '');
-    $temp = $db->query("SELECT _tbl_usr_ccmid, _tbl_usr_name, _tbl_usr_lvl FROM "
-        . "_table_user_ccm WHERE _tbl_usr_ccmid = ".$db->quote($userId))
-        . " AND _tbl_usr_pwd = ".$db->quote(SHA1($password))
-        . " AND _tbl_usr_status = 1";
-    $result = $temp->fetch(PDO::FETCH_ASSOC);
-
-    if($result){
-      setSession($result['_tbl_usr_ccmid'], $result['_tbl_usr_name'], $result['_tbl_usr_lvl']);
-      return 1;
-    }
-    else{
-      return 0;
-    }
+    $tmp = $db->query("SELECT _tbl_lead_id as lid, _tbl_lead_cust_name as name, _tbl_lead_cust_addr as addr, "
+                    . " _tbl_lead_cust_phone as phone, _tbl_lead_cust_occupation as occupation, "
+                    . " _tbl_lead_cust_occupation_sub as occupationdetail, _tbl_lead_cust_biz as biz, "
+                    . " _tbl_lead_cust_income as income, _tbl_lead_cust_pan as pan, _tbl_lead_cust_aadhaar as aadhaar, "
+                    . " _tbl_lead_status as sts, _tbl_lead_added_by_ccmid as user, _tbl_lead_added_on as time FROM _table_leads_ccm WHERE _tbl_lead_status=0 ORDER BY _tbl_lead_added_on LIMIT 0,20");
+    $r = $tmp->fetchAll(PDO::FETCH_ASSOC);
+    return '{"status": 1, "msg": '.json_encode($r).'}';
   }
     
   public function approveLeads($leadId, $status){
     $db = $this -> getDB('r', '');
-    $temp = $db->query("SELECT _tbl_usr_ccmid FROM _table_user_ccm WHERE "
-                      . "_tbl_usr_ccmid = ".$db->quote($userId));
-    $result = $temp->fetch(PDO::FETCH_ASSOC);
-
-    if($result){
-      return true;
-    }
   }
 
   public function deleteLead($leadId){

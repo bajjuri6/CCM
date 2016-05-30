@@ -16,20 +16,35 @@ class leadController extends Controller{
   public function saveLead(){
     if(isset($_SESSION['usr_id']) && $_SESSION['usr_lvl'] >= 1){
       require_once APP_PATH . '/models/Lead.php';
-      $name = $POST['name'];
-      $phone = $POST['phone'];
-      $addr = $POST['addr'];
-      $occupation = $POST['occupation'];
-      $occupationdetail = $POST['occupationdetail'];
-      $biz = $POST['biz'];
-      $pan = $POST['pan'];
-      $aadhaar = $POST['aadhaar'];
+      $name = $_POST['name'];
+      $phone = preg_replace('/[^0-9]/', '', $_POST['phone']);
+      $addr = $_POST['addr'];
+      $occupation = $_POST['occupation'];
+      $occupationdetail = $_POST['occupationdetail'];
+      $biz = json_encode($_POST['biz']);
+      $income = $_POST['income'];
+      $pan = $_POST['pan'];
+      $aadhaar = $_POST['aadhaar'];
       
-      $leadModel = new Lead();
-      return $leadModel -> submitLead($name, $phone, $addr, $occupation, 
-                                      $occupationdetail, $biz, $pan, $aadhaar);
-    } else return -1;
-    
+      if(!preg_match('/^[a-zA-Z0-9. ]+$/', $name)){
+        return '{"status":0,"msg":"Full Name should contain only alphabets, numerals and space!"}';
+      }
+      elseif (empty($phone)) {
+        return '{"status":0,"msg":"Enter a valid mobile number."}';
+      }
+      else {
+        $leadModel = new Lead();
+        $status = $leadModel ->addLead($name, $phone, $addr, $occupation, 
+                                      $occupationdetail, $biz, $income, $pan, $aadhaar); 
+        if($status) {
+          return '{"status": 1, "msg": "Lead added successfully"}';
+        } else {
+          return '{"status": 0, "msg": "Something went wrong please try again!!"}';
+        }
+      }
+    } else {
+      return '{"status": -1, "msg": "You dont\'t have enough privileges to add lead"}';
+    }  
   }
   
   public function edit(){
