@@ -56,7 +56,7 @@ class Bootstrap {
             echo (new Lead())->approveLeads();
         } elseif ($url[0] == 'dltld') {
             require APP_PATH . '/models/Lead.php';
-            echo (new Lead())->approveLeads();
+            echo (new Lead())->deleteLead();
         }
     }
 
