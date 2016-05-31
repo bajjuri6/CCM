@@ -48,43 +48,45 @@
                                 <md-radio-button value="n">No</md-radio-button>
                             </md-radio-group>
                         </md-input-container>
-                        <md-input-container class="md-block">
-                            <label>Monthly Card Sales</label>
-                            <input type="text"  required  name="sales" ng-model="cust.biz.sales">
-                            <div ng-messages="leadsfrm.sales.$error">
-                                <div ng-message="required">Monthly Card Sales is required.</div>
-                            </div>  
-                        </md-input-container>
-                        <md-input-container class="md-block">
-                            <label>PoS Business Since</label>
-                            <input type="text"  required  name="pos_business" ng-model="cust.biz.since">
-                            <div ng-messages="leadsfrm.pos_business.$error">
-                                <div ng-message="required">PoS Business Since is required.</div>
-                            </div>  
-                        </md-input-container>
+                        <div ng-if="cust.biz.cards == 'y'">
+                            <md-input-container class="md-block">
+                                <label>Monthly Card Sales</label>
+                                <input type="text"  required  name="sales" ng-model="cust.biz.sales">
+                                <div ng-messages="leadsfrm.sales.$error">
+                                    <div ng-message="required">Monthly Card Sales is required.</div>
+                                </div>  
+                            </md-input-container>
+                            <md-input-container class="md-block">
+                                <label>PoS Business Since</label>
+                                <input type="text"  required  name="pos_business" ng-model="cust.biz.since">
+                                <div ng-messages="leadsfrm.pos_business.$error">
+                                    <div ng-message="required">PoS Business Since is required.</div>
+                                </div>  
+                            </md-input-container>
 
-                        <label class="lable_clr">Business Premises</label>
-                        <md-input-container ng-init="Owned_Rented = 'Owned'" clas="md-block">
-                            <md-radio-group layout ng-model="cust.biz.premises" class="md-primary">
-                                <md-radio-button value="1" >Owned</md-radio-button>
-                                <md-radio-button value="2">Rented</md-radio-button>
-                            </md-radio-group>
-                        </md-input-container>
-                        
-                        <md-input-container class="md-block">
-                            <label>Nature of Business</label>
-                            <input type="text"  required  name="nature_of_business" ng-model="cust.biz.nature">
-                            <div ng-messages="leadsfrm.nature_of_business.$error">
-                                <div ng-message="required">Nature of Business is required.</div>
-                            </div>  
-                        </md-input-container>
-                        <md-input-container class="md-block">
-                            <label>Business Phone Number</label>
-                            <input type="tel"  required  name="business_phn" ng-model="cust.biz.phone">
-                            <div ng-messages="leadsfrm.business_phn.$error">
-                                <div ng-message="required">Business Pohne Number is required.</div>
-                            </div>  
-                        </md-input-container>
+                            <label class="lable_clr">Business Premises</label>
+                            <md-input-container ng-init="Owned_Rented = 'Owned'" clas="md-block">
+                                <md-radio-group layout ng-model="cust.biz.premises" class="md-primary">
+                                    <md-radio-button value="1" >Owned</md-radio-button>
+                                    <md-radio-button value="2">Rented</md-radio-button>
+                                </md-radio-group>
+                            </md-input-container>
+
+                            <md-input-container class="md-block">
+                                <label>Nature of Business</label>
+                                <input type="text"  required  name="nature_of_business" ng-model="cust.biz.nature">
+                                <div ng-messages="leadsfrm.nature_of_business.$error">
+                                    <div ng-message="required">Nature of Business is required.</div>
+                                </div>  
+                            </md-input-container>
+                            <md-input-container class="md-block">
+                                <label>Business Phone Number</label>
+                                <input type="tel"  required  name="business_phn" ng-model="cust.biz.phone">
+                                <div ng-messages="leadsfrm.business_phn.$error">
+                                    <div ng-message="required">Business Pohne Number is required.</div>
+                                </div>  
+                            </md-input-container>
+                        </div>
                     </div>
                 </div>
                 <md-input-container class="md-block" style="margin-bottom : 32px;">
