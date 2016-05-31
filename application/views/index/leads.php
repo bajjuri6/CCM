@@ -4,7 +4,7 @@
             <div class="md-padding"></div>
             <md-button class="md-raised md-hue-2 md-primary" ng-click="addNewLead($event)">New Lead</md-button>
         </div>
-        
+
         <table flex>
             <tr>
                 <th>Customer Name</th>
@@ -15,7 +15,7 @@
                 <th cols="2">Business detail</th>
                 <th>PAN Number</th>
                 <th>Aadhaar Number</th>
-                <th></th>
+                <th>Status</th>
             </tr>
 
             <tr ng-repeat='lead in leads' id="{{lead.lid}}">
@@ -28,8 +28,13 @@
                 <td ng-bind="lead.pan"></td>
                 <td ng-bind="lead.aadhaar"></td>
                 <td>
-                    <a href="#" class="_act-btn" ng-click="apprvLd(lead.lid, $index, $event)">Approve</a>
-                    <a href="#" class="_act-btn" ng-click="dltLd(lead.lid, $index, $event)">Reject</a>
+                    <div ng-if="lead.sts == 0">
+                        <a href="#" class="_act-btn" ng-click="apprvLd(lead.lid, $index, $event)">Approve</a>
+                        <a href="#" class="_act-btn" ng-click="dltLd(lead.lid, $index, $event)">Reject</a>
+                    </div>
+                    <div ng-if="lead.sts != 0">
+                        <span class="_act-btn">{{lead.sts == 1 ? 'Approved' : 'Rejected'}}</span>
+                    </div>
                 </td>
             </tr>
         </table>

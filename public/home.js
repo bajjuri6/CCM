@@ -375,7 +375,9 @@ app.controller("LeadController", ["$scope", "CCMAPI", "$controller", "manageLead
                 CCMAPI.postData($scope.cust, "adld").success(function (res) {
                     if (res.status == 1)
                     {
+                        $scope.cust.sts = 0;
                         self.parScope.leads.push($scope.cust);
+                        window.scrollTo(0,document.body.scrollHeight);
                         $scope.cancel();
                     }
                     else
@@ -389,7 +391,7 @@ app.controller("LeadController", ["$scope", "CCMAPI", "$controller", "manageLead
             $scope.confirmDialog(ev, "Confirmation Required", 'Please click "Approve" button to confirm', "Approve", "Cancel").then(function () {
                 CCMAPI.postData({id: id}, "aprvld").success(function () {
                     $scope.showSimpleToast("Approved");
-                    angular.element(ev.currentTarget).remove();
+                    $scope['leads'][indx]['sts'] = 1;
                 });
             });
         };
@@ -399,8 +401,8 @@ app.controller("LeadController", ["$scope", "CCMAPI", "$controller", "manageLead
             $scope.confirmDialog(ev, "Delete Confirmation Required", 'Please click "Continue" button to confirm', "Continue", "Cancel").then(function () {
                 CCMAPI.postData({id: id}, "dltld").success(function (res) {
                     if (res.status == 1) {
-                        $scope.showSimpleToast("Deleted");
-                        $scope.leads.splice(indx, 1);
+                        $scope.showSimpleToast("Rejected");
+                        $scope['leads'][indx]['sts'] = -1;
                     }
                 });
             });
