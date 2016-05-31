@@ -70,6 +70,15 @@ class userController extends Controller{
     $this->view->render('index/users');
   }
   
+  public function verifyUser(){
+    require_once APP_PATH . '/models/userAccount.php';
+    $id = $_POST['id'];
+    $password = $_POST['password'];
+    
+    $userModel = new userAccount();
+    echo $userModel -> signin($id, $password);
+  }
+  
   public function logout(){
     session_unset();
     session_destroy();

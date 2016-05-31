@@ -60,6 +60,20 @@ class userAccount{
     else return '{"status":1,"msg":"Username available"}';
     
   }
+  
+  public function checkIfUserExists($phone, $pan, $password){
+    $db = $this -> getDB('w', '');
+    $temp = $db->query("SELECT _tbl_usr_ccmid, _tbl_usr_lvl FROM _table_user_ccm WHERE "
+                      . "_tbl_usr_ccmid = ".$db->quote($phone)." AND _tbl_usr_pan = ".$db->quote($pan));
+    $result = $temp->fetch(PDO::FETCH_ASSOC);
+
+    if($result) {
+      $qs = "UPDATE _table_user_ccm SET _tbl_usr_password= ".$db->quote($password)." WHERE _tbl_usr_ccmid = ".$db->quote($phone);
+      $result = $db -> exec($qs);
+      return '{"status":1,"msg":"Succsesfully verified your account."}';
+    }
+    else return '{"status":0,"msg":"Could not verify your account. please recheck the information and try again."}';
+  }
 
   public function logout($urlArray){
       session_unset();

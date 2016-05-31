@@ -36,6 +36,9 @@ class Bootstrap {
         } elseif ($url[0] == 'users') {
             require APP_PATH . '/controllers/user.php';
             (new userController())->userPage();
+        } elseif ($url[0] == 'verifyuser') {
+            require APP_PATH . '/controllers/user.php';
+            (new userController())->verifyUser();
         }
 
         //Check for LEADS activity
