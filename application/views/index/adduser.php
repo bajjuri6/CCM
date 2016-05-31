@@ -13,12 +13,11 @@
                         </div>  
                     </md-input-container>
                     <md-input-container class="md-block">
-                        <label>Username</label>
-                        <input type="text" md-maxlength="30" required  name="usr_name" ng-model="usr.id">
-                        <div ng-messages="empfrm.usr_name.$error">
-                            <div ng-message="required">Username is required.</div>
-                            <div ng-message="md-maxlength">The username has to be less than 30 characters long.</div>
-                        </div>  
+                        <label>Phone Number</label>
+                        <input type="tel"  required name="phone" ng-model="usr.phone">
+                        <div ng-messages="empfrm.phone.$error">
+                            <div ng-message="required">phone number is required.</div>
+                        </div>
                     </md-input-container>
                     <md-input-container class="md-block">
                         <label>Password</label>
@@ -35,13 +34,6 @@
                           <div ng-message-exp="['required', 'minlength', 'maxlength', 'pattern']">
                             Your email must be between 10 and 100 characters long and look like an e-mail address.
                           </div>
-                        </div>
-                    </md-input-container>
-                    <md-input-container class="md-block">
-                        <label>Phone Number</label>
-                        <input type="tel"  required name="phone" ng-model="usr.phone">
-                        <div ng-messages="empfrm.phone.$error">
-                            <div ng-message="required">phone number is required.</div>
                         </div>
                     </md-input-container>
                     <md-input-container class="md-block">

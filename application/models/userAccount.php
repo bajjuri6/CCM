@@ -14,12 +14,12 @@ class userAccount{
     
   }
   
-  public function addUser($name, $phone, $id, $password, $email, $addr, $lvl){
+  public function addUser($name, $phone, $password, $email, $addr, $lvl){
     $db = $this -> getDB('w', '');
     $UId = md5($db->quote($id));
     
     $qs = "INSERT INTO _table_user_ccm VALUES ('$UId',".$db->quote($name).",". $db->quote($phone).", "
-        . $db->quote($id).", ".$db->quote(SHA1($password)).", ".$db->quote($email).", ".$db->quote($addr).", "
+        . $db->quote($phone).", ".$db->quote(SHA1($password)).", ".$db->quote($email).", ".$db->quote($addr).", "
         . "15, 1, ".$db->quote($lvl).", 'Admin',".time().")";
     $result = $db -> exec($qs);
     if($result){

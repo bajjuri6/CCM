@@ -11,7 +11,6 @@
 	            <table>
                   <tr>
 	                    <th>Full Name</th>
-                      <th>CCM ID</th>
                       <th>Phone Number</th>
                       <th>Email</th>
                       <th>Address</th>
@@ -22,7 +21,6 @@
                   
 	                <tr ng-repeat='user in users'>
 	                    <td ng-bind="user.name"></td>
-                      <td ng-bind="user.id"></td>
                       <td ng-bind="user.phone"></td>
                       <td ng-bind="user.email"></td>
                       <td ng-bind="user.addr"></td>

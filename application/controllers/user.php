@@ -23,14 +23,13 @@ class userController extends Controller{
       require_once APP_PATH . '/models/userAccount.php';
       $name = $_POST['name'];
       $phone = $_POST['phone'];
-      $id = $_POST['id'];
       $password = $_POST['password'];
       $email = $_POST['email'];
       $addr = $_POST['addr'];
       $lvl = $_POST['lvl'];
 
       $userModel = new userAccount();
-      echo $userModel -> addUser($name, $phone, $id, $password, $email, $addr, $lvl);
+      echo $userModel -> addUser($name, $phone, $password, $email, $addr, $lvl);
     } else echo '{"status":-99,"msg":"You do not have sufficient previleges to do this."}';
     
   }
