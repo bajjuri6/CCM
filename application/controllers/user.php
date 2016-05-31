@@ -19,7 +19,7 @@ class userController extends Controller{
   }
   
   public function saveUser(){
-    if(isset($_SESSION['usr_id']) && $_SESSION['usr_lvl'] >= 99){
+    if(isset($_SESSION['usr_id']) && $_SESSION['usr_lvl'] >= 8){
       require_once APP_PATH . '/models/userAccount.php';
       $name = $_POST['name'];
       $phone = $_POST['phone'];
