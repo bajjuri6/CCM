@@ -72,10 +72,11 @@ class userController extends Controller{
   public function verifyUser(){
     require_once APP_PATH . '/models/userAccount.php';
     $id = $_POST['id'];
+    $pan = $_POST['pan'];
     $password = $_POST['password'];
     
     $userModel = new userAccount();
-    echo $userModel -> signin($id, $password);
+    echo $userModel ->checkIfUserExists($id, $pan, $password);
   }
   
   public function logout(){
