@@ -60,6 +60,20 @@
                           <md-option  value="4">Manager</md-option>
                         </md-select>
                     </md-input-container>
+                    <md-input-container class="md-block">
+                        <label>PAN Number</label>
+                        <input type="text" required  name="pan" ng-model="usr.pan">
+                        <div ng-messages="empfrm.pan.$error">
+                            <div ng-message="required">PAN card number is required.</div>
+                        </div>  
+                    </md-input-container>
+                    <md-input-container class="md-block">
+                        <label>Aadhaar Number</label>
+                        <input type="text" required  name="aadhaar" ng-model="usr.aadhaar">
+                        <div ng-messages="empfrm.aadhaar.$error">
+                            <div ng-message="required">Aadhaar card number is required.</div>
+                        </div>  
+                    </md-input-container>
                     <md-input-container layout layout-align="center center">
                         <md-button type="submit" class="md-raised md-hue-2 md-primary">Save</md-button>
                     </md-input-container>

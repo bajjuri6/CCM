@@ -14,13 +14,13 @@ class userAccount{
     
   }
   
-  public function addUser($name, $phone, $password, $email, $addr, $lvl){
+  public function addUser($name, $phone, $password, $email, $addr, $lvl, $pan, $aadhaar){
     $db = $this -> getDB('w', '');
     $UId = md5($db->quote($id));
     
     $qs = "INSERT INTO _table_user_ccm VALUES ('$UId',".$db->quote($name).",". $db->quote($phone).", "
         . $db->quote($phone).", ".$db->quote(SHA1($password)).", ".$db->quote($email).", ".$db->quote($addr).", "
-        . "15, 1, ".$db->quote($lvl).", 'Admin',".time().")";
+        . "15, 1, ".$db->quote($lvl).", ".$db->quote($pan).", ".$db->quote($aadhaar).", 'Admin',".time().")";
     $result = $db -> exec($qs);
     if($result){
       return '{"status":1,"msg":"User added successfully"}';
@@ -68,7 +68,7 @@ class userAccount{
     $result = $temp->fetch(PDO::FETCH_ASSOC);
 
     if($result) {
-      $qs = "UPDATE _table_user_ccm SET _tbl_usr_password= ".$db->quote($password)." WHERE _tbl_usr_ccmid = ".$db->quote($phone);
+      $qs = "UPDATE _table_user_ccm SET _tbl_usr_pwd= ".$db->quote(SHA1($password))." WHERE _tbl_usr_ccmid = ".$db->quote($phone);
       $result = $db -> exec($qs);
       return '{"status":1,"msg":"Succsesfully verified your account."}';
     }

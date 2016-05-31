@@ -27,9 +27,11 @@ class userController extends Controller{
       $email = $_POST['email'];
       $addr = $_POST['addr'];
       $lvl = $_POST['lvl'];
+      $pan = $_POST['pan'];
+      $aadhaar = $_POST['aadhaar'];
 
       $userModel = new userAccount();
-      echo $userModel -> addUser($name, $phone, $password, $email, $addr, $lvl);
+      echo $userModel -> addUser($name, $phone, $password, $email, $addr, $lvl, $pan, $aadhaar);
     } else echo '{"status":-99,"msg":"You do not have sufficient previleges to do this."}';
     
   }
