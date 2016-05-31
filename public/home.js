@@ -343,12 +343,16 @@ app.controller("LeadController", ["$scope", "CCMAPI", "$controller", "manageLead
             if (lead.occupation == 1)
             {
                 var biz = typeof lead['biz'] == 'string' ? JSON.parse(lead['biz']) : lead['biz'];
-                return "<span>Accepts Cards : " + (biz.cards == 'y' ? "Yes" : "No") + "</span><br>" +
-                        "<span>Monthly Card Sales : " + (biz.sales) + "</span><br>" +
-                        "<span>PoS Business Since: " + (biz.since) + "</span><br>" +
-                        "<span>Business Premises : " + (biz.premises == 1 ? "Owned" : "Rented") + "</span><br>" +
-                        "<span>Nature of Business : " + (biz.nature) + "</span><br>" +
-                        "<span>Business Phone : " + biz.phone + "</span><br>";
+                var str = "<span>Accepts Cards : " + (biz.cards == 'y' ? "Yes" : "No") + "</span><br>";
+                if (biz.cards == 'y') {
+                    str += "<span>Monthly Card Sales : " + (biz.sales) + "</span><br>" +
+                            "<span>PoS Business Since: " + (biz.since) + "</span><br>" +
+                            "<span>Business Premises : " + (biz.premises == 1 ? "Owned" : "Rented") + "</span><br>" +
+                            "<span>Nature of Business : " + (biz.nature) + "</span><br>" +
+                            "<span>Business Phone : " + biz.phone + "</span><br>";
+                }
+
+                return str;
             }
             else
                 return "";
