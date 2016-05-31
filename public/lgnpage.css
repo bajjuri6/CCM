@@ -21,7 +21,7 @@ table {
     width: 100%;
     border-spacing: 0;
     background : #FFF;
-    margin : 2em 0 4em; 
+    margin : 8px 0 4em; 
     border-top: 1px solid #9E9E9E;
 }
 tr:nth-child(2n) {
