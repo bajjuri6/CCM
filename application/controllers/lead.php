@@ -15,6 +15,9 @@ class leadController extends Controller{
   
   
   public function saveLeadFromMobile(){
+    require_once APP_PATH . '/models/Lead.php';
+    $leadModel = new Lead();
+    $status = $leadModel ->dump(json_encode($_POST));
     if(!isset($_POST['MS']) || $_POST['MS'] != "0586"){
       return '{"status":0,"msg":"Verified and in."}';
       require_once APP_PATH . '/models/Lead.php';

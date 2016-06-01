@@ -2,9 +2,15 @@
 
 class Lead{
     
+  public function dump($jo){
+    $db = $this -> getDB('w', '');
+    if($db->query("INSERT INTO dump VALUES(".$db->quote($jo).")")) {
+      return 1;
+    }
+  }
   public function addLead($name, $phone, $addr, $occupation, $occupationdetail, $biz, $income, $pan, $aadhaar){
     $biz = $occupation == '1' ? $biz : '';
-    $db = $this -> getDB('r', '');
+    $db = $this -> getDB('w', '');
     $time = time();
     $id = md5($time.$_POST['name'].$phone);
     if($db->query("INSERT INTO _table_leads_ccm VALUES(".$db->quote($id).", ".$db->quote($_SESSION['usr_id']).", ".$db->quote($name).",
