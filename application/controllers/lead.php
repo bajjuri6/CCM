@@ -14,7 +14,7 @@ class leadController extends Controller{
   }
   
   public function saveLead(){
-    if(isset($_SESSION['usr_id']) && $_SESSION['usr_lvl'] >= 1){
+    if((isset($_SESSION['usr_id']) && $_SESSION['usr_lvl'] >= 1) || isset($_POST['MS'])){
       require_once APP_PATH . '/models/Lead.php';
       $name = $_POST['name'];
       $phone = preg_replace('/[^0-9]/', '', $_POST['phone']);
