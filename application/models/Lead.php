@@ -2,12 +2,14 @@
 
 class Lead{
     
-  public function addLead($name, $phone, $addr, $occupation, $occupationdetail, $biz, $income, $pan, $aadhaar){
+  public function addLead($name, $phone, $addr, $occupation, $occupationdetail, $biz, $income, $pan, $aadhaar, $ccmid = null){
     $biz = $occupation == '1' ? $biz : '';
     $db = $this -> getDB('w', '');
     $time = time();
+    if ($ccmid != null) $refid = $ccmid;
+    else $refid = $_SESSION['usr_id'];
     $id = md5($time.$_POST['name'].$phone);
-    if($db->query("INSERT INTO _table_leads_ccm VALUES(".$db->quote($id).", ".$db->quote($_SESSION['usr_id']).", ".$db->quote($name).",
+    if($db->query("INSERT INTO _table_leads_ccm VALUES(".$db->quote($id).", ".$db->quote($refid).", ".$db->quote($name).",
                ".$db->quote($addr).", ".$db->quote($phone).", ".$db->quote($occupation).", ".$db->quote($occupationdetail).",
                ".$db->quote($biz).", ".$db->quote($income).", ".$db->quote($pan).", ".$db->quote($aadhaar).", 0, '', '', ".$time.", '')")) {
       return 1;
