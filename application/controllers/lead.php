@@ -41,10 +41,11 @@ class leadController extends Controller{
       $income = $_POST['income'];
       $pan = $_POST['pan'];
       $aadhaar = $_POST['aadhaar'];
+      $ccmid = $_POST['ccmid'];
       
       $leadModel = new Lead();
       $status = $leadModel ->addLead($name, $phone, $addr, $occupation, 
-                                      $occupationdetail, $biz, $income, $pan, $aadhaar); 
+                                      $occupationdetail, $biz, $income, $pan, $aadhaar, $ccmid); 
       if($status) {
         return '{"status": 1, "msg": "Lead added successfully"}';
       } else {
