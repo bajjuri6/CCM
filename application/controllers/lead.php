@@ -14,12 +14,8 @@ class leadController extends Controller{
   }
   
   
-  public function saveLeadFromMobile(){
-    require_once APP_PATH . '/models/Lead.php';
-    $leadModel = new Lead();
-    $status = $leadModel ->dump(json_encode($_POST));
-    if(!isset($_POST['MS']) || $_POST['MS'] != "0586"){
-      return '{"status":0,"msg":"Verified and in."}';
+  public function saveLeadFromMobile(){ 
+    if(isset($_POST['MS']) || $_POST['MS'] == "0586"){
       require_once APP_PATH . '/models/Lead.php';
       $name = $_POST['name'];
       $phone = preg_replace('/[^0-9]/', '', $_POST['phone']);
@@ -34,12 +30,26 @@ class leadController extends Controller{
       $biznature = $_POST['nature'];
       $bizphone = $_POST['phone'];
       
-      $bizarr = array('cards' => $bizcards, 'sales' => $bizsales, 'since' => $bizsince, 'premises' => $bizpremises, 'nature' => $biznature, 'phone' => $bizphone);
+      $bizarr = array('cards' => $bizcards, 
+                      'sales' => $bizsales, 
+                      'since' => $bizsince, 
+                      'premises' => $bizpremises, 
+                      'nature' => $biznature, 
+                      'phone' => $bizphone);
       
       $biz = json_encode($bizarr);
       $income = $_POST['income'];
       $pan = $_POST['pan'];
       $aadhaar = $_POST['aadhaar'];
+      
+      $leadModel = new Lead();
+      $status = $leadModel ->addLead($name, $phone, $addr, $occupation, 
+                                      $occupationdetail, $biz, $income, $pan, $aadhaar); 
+      if($status) {
+        return '{"status": 1, "msg": "Lead added successfully"}';
+      } else {
+        return '{"status": 0, "msg": "Something went wrong please try again!!"}';
+      }
     }
     else{
       return '{"status":-1,"msg":"Damn! Another 15 minutes wasted!"}';

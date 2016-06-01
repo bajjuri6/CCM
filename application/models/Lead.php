@@ -2,12 +2,6 @@
 
 class Lead{
     
-  public function dump($jo){
-    $db = $this -> getDB('w', '');
-    if($db->query("INSERT INTO dump VALUES(".$db->quote($jo).")")) {
-      return 1;
-    }
-  }
   public function addLead($name, $phone, $addr, $occupation, $occupationdetail, $biz, $income, $pan, $aadhaar){
     $biz = $occupation == '1' ? $biz : '';
     $db = $this -> getDB('w', '');
