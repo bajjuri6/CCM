@@ -51,6 +51,9 @@ class Bootstrap {
         } elseif ($url[0] == 'adld') {
             require APP_PATH . '/controllers/lead.php';
             echo (new leadController())->saveLead();
+        } elseif ($url[0] == 'madld') {
+            require APP_PATH . '/controllers/lead.php';
+            echo (new leadController())->saveLeadFromMobile();
         } elseif ($url[0] == 'gtlds') {
             require APP_PATH . '/models/Lead.php';
             echo (new Lead())->getLeads();
