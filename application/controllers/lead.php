@@ -13,8 +13,39 @@ class leadController extends Controller{
     $this->view->render('index/newlead', true, false);
   }
   
+  
+  public function saveLeadFromMobile(){
+    if(!isset($_POST['MS']) || $_POST['MS'] != "0586"){
+      return '{"status":0,"msg":"Verified and in."}';
+      require_once APP_PATH . '/models/Lead.php';
+      $name = $_POST['name'];
+      $phone = preg_replace('/[^0-9]/', '', $_POST['phone']);
+      $addr = $_POST['addr'];
+      $occupation = $_POST['occupation'];
+      $occupationdetail = $_POST['occupationdetail'];
+      
+      $bizcards = $_POST['cards'];
+      $bizsales = $_POST['sales'];
+      $bizsince = $_POST['since'];
+      $bizpremises = $_POST['premises'];;
+      $biznature = $_POST['nature'];
+      $bizphone = $_POST['phone'];
+      
+      $bizarr = array('cards' => $bizcards, 'sales' => $bizsales, 'since' => $bizsince, 'premises' => $bizpremises, 'nature' => $biznature, 'phone' => $bizphone);
+      
+      $biz = json_encode($bizarr);
+      $income = $_POST['income'];
+      $pan = $_POST['pan'];
+      $aadhaar = $_POST['aadhaar'];
+    }
+    else{
+      return '{"status":-1,"msg":"Damn! Another 15 minutes wasted!"}';
+    }
+    
+  }
+  
   public function saveLead(){
-    if((isset($_SESSION['usr_id']) && $_SESSION['usr_lvl'] >= 1) || isset($_POST['MS'])){
+    if(isset($_SESSION['usr_id']) && $_SESSION['usr_lvl'] >= 1){
       require_once APP_PATH . '/models/Lead.php';
       $name = $_POST['name'];
       $phone = preg_replace('/[^0-9]/', '', $_POST['phone']);
