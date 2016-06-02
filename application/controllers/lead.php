@@ -112,7 +112,7 @@ class leadController extends Controller{
       $leadModel = new Lead();
       
       $refid = $_POST['ccmid'];
-      $leadModel->mGetLeads($refid);
+      return $leadModel->mGetLeads($refid);
     }
   }
   
