@@ -106,7 +106,7 @@ class leadController extends Controller{
     $this->view->render('index/leads');
   }
   
-  public function mgtld(){
+  public function getLeadsforMobile(){
     if(isset($_POST['MS']) || $_POST['MS'] == "0586"){
       require_once APP_PATH . '/models/Lead.php';
       $leadModel = new Lead();
