@@ -16,7 +16,7 @@ class userAccount{
   
   public function addUser($name, $phone, $password, $email, $addr, $lvl, $pan, $aadhaar){
     $db = $this -> getDB('w', '');
-    $UId = md5($db->quote($id));
+    $UId = md5($db->quote($phone));
     
     $qs = "INSERT INTO _table_user_ccm VALUES ('$UId',".$db->quote($name).",". $db->quote($phone).", "
         . $db->quote($phone).", ".$db->quote(SHA1($password)).", ".$db->quote($email).", ".$db->quote($addr).", "
@@ -26,6 +26,7 @@ class userAccount{
       return '{"status":1,"msg":"User added successfully"}';
     }
     else{
+      var_dump($qs);
       return '{"status":0,"msg":"Could not add user. Please try again later."}';
     }
   }
