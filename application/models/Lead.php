@@ -29,7 +29,7 @@ class Lead{
                     .  "WHERE _tbl_lead_ref_id = ". $db->quote($ccmid) ." ORDER BY _tbl_lead_added_on");
     $r = $tmp->fetchAll(PDO::FETCH_ASSOC);
     if($r){
-      $qs = "INSERT INTO temp VALUES ".json_encode($r);
+      $qs = "INSERT INTO temp VALUES (".$db->quote(json_encode($r)).")";
       $db ->exec($qs);
       return '{"status": 1, "msg": "Leads are available", "leads": '.json_encode($r).'}';
       
