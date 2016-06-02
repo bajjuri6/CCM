@@ -17,6 +17,7 @@ class leadController extends Controller{
   public function saveLeadFromMobile(){ 
     if(isset($_POST['MS']) || $_POST['MS'] == "0586"){
       require_once APP_PATH . '/models/Lead.php';
+      $leadModel = new Lead();
       $name = $_POST['name'];
       $phone = preg_replace('/[^0-9]/', '', $_POST['phone']);
       $addr = $_POST['addr'];
@@ -43,7 +44,7 @@ class leadController extends Controller{
       $aadhaar = $_POST['aadhaar'];
       $ccmid = $_POST['ccmid'];
       
-      $leadModel = new Lead();
+      
       $status = $leadModel ->addLead($name, $phone, $addr, $occupation, 
                                       $occupationdetail, $biz, $income, $pan, $aadhaar, $ccmid); 
       if($status) {
@@ -103,6 +104,16 @@ class leadController extends Controller{
   
   public function all(){
     $this->view->render('index/leads');
+  }
+  
+  public function mgtld(){
+    if(isset($_POST['MS']) || $_POST['MS'] == "0586"){
+      require_once APP_PATH . '/models/Lead.php';
+      $leadModel = new Lead();
+      
+      $refid = $_POST['ccmid'];
+      $leadModel->mGetLeads($refid);
+    }
   }
   
   
