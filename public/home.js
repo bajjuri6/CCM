@@ -260,6 +260,7 @@ app.controller("UserController", ["$scope", "CCMAPI", "$controller", "manageUser
                 CCMAPI.postData($scope.usr, "saveuser")
                         .success(function (res) {
                             $scope.showSimpleToast(res.msg);
+                            $scope.cancel();
                         }).error(function (err) {
                     $scope.showSimpleToast("Oh no! Can you please try again");
                 });
