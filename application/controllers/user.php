@@ -19,7 +19,7 @@ class userController extends Controller{
   }
   
   public function saveUser(){
-    if(isset($_SESSION['usr_id']) && $_SESSION['usr_lvl'] >= 8){
+    if(isset($_SESSION['usr_id']) && $_SESSION['usr_lvl'] >= 4){
       require_once APP_PATH . '/models/userAccount.php';
       $name = $_POST['name'];
       $phone = $_POST['phone'];
@@ -33,7 +33,7 @@ class userController extends Controller{
       $userModel = new userAccount();
       echo $userModel -> addUser($name, $phone, $password, $email, $addr, $lvl, $pan, $aadhaar);
     } else echo '{"status":-99,"msg":"You do not have sufficient previleges to do this."}';
-    
+  
   }
   
   public function signin(){
