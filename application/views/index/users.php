@@ -9,7 +9,7 @@
                 <th>Phone Number</th>
                 <th>Email</th>
                 <th>Address</th>
-                <th>Status</th>
+                <th>PAN Number</th>
                 <th>Privilege Level</th>
                 <th></th>
             </tr>
@@ -19,7 +19,7 @@
                 <td ng-bind="user.phone"></td>
                 <td ng-bind="user.email"></td>
                 <td ng-bind="user.addr"></td>
-                <td ng-bind="status[user.status]"></td>
+                <td ng-bind="user.pan"></td>
                 <td ng-bind="lvl[user.lvl]"></td>
                 <td>
                     <div ng-if="user.status == 1">

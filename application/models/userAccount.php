@@ -103,6 +103,7 @@ class userAccount{
         . "_tbl_usr_email AS email, "
         . "_tbl_usr_addr AS addr, "
         . "_tbl_usr_status AS status,"
+        . "_tbl_usr_pan AS pan,"
         . "_tbl_usr_lvl AS lvl "
         . "FROM _table_user_ccm");
 //                      . "WHERE _tbl_usr_lvl & ".$db->quote($lvl));
