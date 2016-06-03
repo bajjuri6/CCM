@@ -268,6 +268,28 @@ app.controller("UserController", ["$scope", "CCMAPI", "$controller", "manageUser
                 });
             }
         }
+        
+        $scope.sspndUsr = function (id, indx, ev) {
+            ev.preventDefault();
+            $scope.confirmDialog(ev, "Confirmation Required", 'Please click "Approve" button to confirm', "Approve", "Cancel").then(function () {
+                CCMAPI.postData({id: id}, "sspnduser").success(function () {
+                    $scope.showSimpleToast("User Suspended.");
+                    $scope['users'][indx]['sts'] = 0;
+                });
+            });
+        };
+
+        $scope.dltUsr = function (id, indx, ev) {
+            ev.preventDefault();
+            $scope.confirmDialog(ev, "Delete Confirmation Required", 'Please click "Continue" button to confirm', "Continue", "Cancel").then(function () {
+                CCMAPI.postData({id: id}, "dltuser").success(function (res) {
+                    if (res.status == 1) {
+                        $scope.showSimpleToast("User Rejected.");
+                        $scope['users'][indx]['sts'] = -1;
+                    }
+                });
+            });
+        };
 
         $scope.getUsers = function () {
             CCMAPI.postData({}, "getusers")

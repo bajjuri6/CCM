@@ -45,13 +45,11 @@ class userController extends Controller{
     echo $userModel -> signin($id, $password);
   }
   
-  public function updateUserStatus(){
+  public function updateUserStatus($ccmid, $status){
     if(isset($_SESSION['usr_id']) && $_SESSION['usr_lvl'] >= 4){
       require_once APP_PATH . '/models/userAccount.php';
-      $id = $_POST['id'];
-      $status = $_POST['status'];
       $userModel = new userAccount();
-      return $userModel -> setUserStatus($id, $status);
+      return $userModel -> setUserStatus($ccmid, $status);
     } else echo '{"status":-99,"msg":"You do not have sufficient previleges to do this."}';
   }
   

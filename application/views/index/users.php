@@ -14,7 +14,7 @@
                 <th></th>
             </tr>
 
-            <tr ng-repeat='user in users'>
+            <tr ng-repeat='user in users' id="{{user.uid}}">
                 <td ng-bind="user.name"></td>
                 <td ng-bind="user.phone"></td>
                 <td ng-bind="user.email"></td>
@@ -22,12 +22,12 @@
                 <td ng-bind="status[user.status]"></td>
                 <td ng-bind="lvl[user.lvl]"></td>
                 <td>
-                    <div ng-if="user.status == 0">
-                        <a class="_act-btn" href="#" ng-click="aprvUsr(user.uid, $index, $event)">Approve</a>
-                        <a class="_act-btn" href="#" ng-click="dltUsr(user.uid, $index, $event)">delete</a>  
+                    <div ng-if="user.status == 1">
+                        <a class="_act-btn" href="#" ng-click="sspndUsr(user.uid, $index, $event)">Suspend</a>
+                        <a class="_act-btn" href="#" ng-click="dltUsr(user.uid, $index, $event)">Delete</a>  
                     </div>
                     <div ng-if="user.status != 0">
-                        <span class="_act-btn">{{user.status == 1 ? 'Approved' : 'Rejected'}}</span>
+                        <span class="_act-btn">{{user.status == 0 ? 'Suspended' : 'Deleted'}}</span>
                     </div>
                 </td>
             </tr>

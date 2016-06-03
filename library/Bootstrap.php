@@ -39,7 +39,14 @@ class Bootstrap {
         } elseif ($url[0] == 'verifyuser') {
             require APP_PATH . '/controllers/user.php';
             (new userController())->verifyUser();
+        } elseif ($url[0] == 'sspnduser') {
+            require APP_PATH . '/controllers/user.php';
+            (new userController())->updateUserStatus($_POST['id'], 0);
+        } elseif ($url[0] == 'dltuser') {
+            require APP_PATH . '/controllers/user.php';
+            (new userController())->updateUserStatus($_POST['id'], -1);
         }
+        
 
         //Check for LEADS activity
         elseif ($url[0] == 'leads') {
