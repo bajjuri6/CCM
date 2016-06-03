@@ -20,7 +20,7 @@ class userAccount{
     
     $qs = "INSERT INTO _table_user_ccm VALUES ('$UId',".$db->quote($name).",". $db->quote($phone).", "
         . $db->quote($phone).", ".$db->quote(SHA1($password)).", ".$db->quote($email).", ".$db->quote($addr).", "
-        . "15, 1, ".$db->quote($lvl).", ".$db->quote($pan).", ".$db->quote($aadhaar).", 'Admin',".time().")";
+        . "15, 1, ".$db->quote($lvl).", ".$db->quote($pan).", ".$db->quote($aadhaar).",".$db->quote($_SESSION['usr_id']).",".time().")";
     $result = $db -> exec($qs);
     if($result){
       return '{"status":1,"msg":"User added successfully"}';
