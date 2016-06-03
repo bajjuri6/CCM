@@ -96,7 +96,8 @@ class userAccount{
   
   public function getUsers($lvl){
     $db = $this -> getDB('r', '');
-    $temp = $db->query("SELECT _tbl_usr_name AS name, "
+    $temp = $db->query("SELECT  _tbl_usr_id AS uid, "
+        . " _tbl_usr_name AS name,"
         . "_tbl_usr_ccmid AS id, "
         . "_tbl_usr_phone AS phone, "
         . "_tbl_usr_email AS email, "
