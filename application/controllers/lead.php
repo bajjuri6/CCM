@@ -36,7 +36,7 @@ class leadController extends Controller{
                       'since' => $bizsince, 
                       'premises' => $bizpremises, 
                       'nature' => $biznature, 
-                      'phone' => $bizphone);
+                      'bphone' => $bizphone);
       
       $biz = json_encode($bizarr);
       $income = $_POST['income'];
