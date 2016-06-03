@@ -26,9 +26,9 @@
                         <a class="_act-btn" href="#" ng-click="sspndUsr(user.uid, $index, $event)">Suspend</a>
                         <a class="_act-btn" href="#" ng-click="dltUsr(user.uid, $index, $event)">Delete</a>  
                     </div>
-                    <div ng-if="user.status != 0">
+<!--                    <div ng-if="user.status != 0">
                         <span class="_act-btn">{{user.status == 0 ? 'Suspended' : 'Deleted'}}</span>
-                    </div>
+                    </div>-->
                 </td>
             </tr>
         </table>
