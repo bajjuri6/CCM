@@ -23,12 +23,12 @@
                 <td ng-bind="lvl[user.lvl]"></td>
                 <td>
                     <div ng-if="user.status == 1">
-                        <a class="_act-btn" href="#" ng-click="sspndUsr(user.uid, $index, $event)">Suspend</a>
-                        <a class="_act-btn" href="#" ng-click="dltUsr(user.uid, $index, $event)">Delete</a>  
+                        <a class="_act-btn" href="#" ng-click="sspndUsr(user.phone, $index, $event)">Suspend</a>
+                        <a class="_act-btn" href="#" ng-click="dltUsr(user.phone, $index, $event)">Delete</a>  
                     </div>
-<!--                    <div ng-if="user.status != 0">
+                   <div ng-if="user.status != 1">
                         <span class="_act-btn">{{user.status == 0 ? 'Suspended' : 'Deleted'}}</span>
-                    </div>-->
+                    </div>
                 </td>
             </tr>
         </table>

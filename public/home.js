@@ -259,10 +259,7 @@ app.controller("UserController", ["$scope", "CCMAPI", "$controller", "manageUser
             if (isValid) {
                 CCMAPI.postData($scope.usr, "saveuser")
                         .success(function (res) {
-                            if (res.status) {
-                            }
-                            else
-                                $scope.showSimpleToast(res.msg);
+                            $scope.showSimpleToast(res.msg);
                         }).error(function (err) {
                     $scope.showSimpleToast("Oh no! Can you please try again");
                 });
@@ -272,9 +269,11 @@ app.controller("UserController", ["$scope", "CCMAPI", "$controller", "manageUser
         $scope.sspndUsr = function (id, indx, ev) {
             ev.preventDefault();
             $scope.confirmDialog(ev, "Confirmation Required", 'Please click "Approve" button to confirm', "Approve", "Cancel").then(function () {
-                CCMAPI.postData({id: id}, "sspnduser").success(function () {
-                    $scope.showSimpleToast("User Suspended.");
-                    $scope['users'][indx]['sts'] = 0;
+                CCMAPI.postData({id: id}, "sspnduser").success(function (res) {
+                    if (res.status == 1) {
+                        $scope.showSimpleToast(res.msg);
+                        $scope['users'][indx]['sts'] = 0;
+                    }
                 });
             });
         };
@@ -284,7 +283,7 @@ app.controller("UserController", ["$scope", "CCMAPI", "$controller", "manageUser
             $scope.confirmDialog(ev, "Delete Confirmation Required", 'Please click "Continue" button to confirm', "Continue", "Cancel").then(function () {
                 CCMAPI.postData({id: id}, "dltuser").success(function (res) {
                     if (res.status == 1) {
-                        $scope.showSimpleToast("User Rejected.");
+                        $scope.showSimpleToast(res.msg);
                         $scope['users'][indx]['sts'] = -1;
                     }
                 });
