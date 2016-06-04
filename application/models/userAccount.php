@@ -17,17 +17,20 @@ class userAccount{
   public function addUser($name, $phone, $password, $email, $addr, $lvl, $pan, $aadhaar){
     $db = $this -> getDB('w', '');
     $UId = md5($db->quote($phone));
-    
-    $qs = "INSERT INTO _table_user_ccm VALUES ('$UId',".$db->quote($name).",". $db->quote($phone).", "
-        . $db->quote($phone).", ".$db->quote(SHA1($password)).", ".$db->quote($email).", ".$db->quote($addr).", "
-        . "15, 1, ".$db->quote($lvl).", ".$db->quote($pan).", ".$db->quote($aadhaar).",".$db->quote($_SESSION['usr_id']).",".time().")";
-    $result = $db -> exec($qs);
-    if($result){
-      return '{"status":1,"msg":"User added successfully"}';
-    }
-    else{
-      var_dump($qs);
-      return '{"status":0,"msg":"Could not add user. Please try again later."}';
+    if(checkIfUserNameExists($phone,$pan,$aadhaar) == 1)
+      return '{"status":0,"msg":"Duplicate phone, PAN or Aadhaar number found. Cannot add user."}';
+    else {
+      $qs = "INSERT INTO _table_user_ccm VALUES ('$UId',".$db->quote($name).",". $db->quote($phone).", "
+          . $db->quote($phone).", ".$db->quote(SHA1($password)).", ".$db->quote($email).", ".$db->quote($addr).", "
+          . "15, 1, ".$db->quote($lvl).", ".$db->quote($pan).", ".$db->quote($aadhaar).",".$db->quote($_SESSION['usr_id']).",".time().")";
+      $result = $db -> exec($qs);
+      if($result){
+        return '{"status":1,"msg":"User added successfully"}';
+      }
+      else{
+        var_dump($qs);
+        return '{"status":0,"msg":"Could not add user. Please try again later."}';
+      }
     }
   }
   
@@ -51,14 +54,15 @@ class userAccount{
     }
   }
     
-  public function checkIfUserNameExists($userId){
+  public function checkIfUserNameExists($userId, $pan, $aadhaar){
     $db = $this -> getDB('r', '');
     $temp = $db->query("SELECT _tbl_usr_ccmid FROM _table_user_ccm WHERE "
-                      . "_tbl_usr_ccmid = ".$db->quote($userId));
+                      . "_tbl_usr_ccmid = ".$db->quote($userId)." OR _tbl_usr_pan = "
+                      . $db->quote($pan). " OR _tbl_usr_aadhaar = ". $db->quote($aadhaar));
     $result = $temp->fetch(PDO::FETCH_ASSOC);
 
-    if($result) return '{"status":0,"msg":"Username exists. Please try another name."}';
-    else return '{"status":1,"msg":"Username available"}';
+    if($result) return 1;
+    else return 0;
     
   }
   
