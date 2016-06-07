@@ -17,7 +17,8 @@ class userAccount{
   public function addUser($name, $phone, $password, $email, $addr, $lvl, $pan, $aadhaar){
     $db = $this -> getDB('w', '');
     $UId = md5($db->quote($phone));
-    if(checkIfUserNameExists($phone,$pan,$aadhaar) == 1)
+    $checkUser = $this -> checkIfUserNameExists($phone,$pan,$aadhaar);
+    if($checkUser == 1)
       return '{"status":0,"msg":"Duplicate phone, PAN or Aadhaar number found. Cannot add user."}';
     else {
       $qs = "INSERT INTO _table_user_ccm VALUES ('$UId',".$db->quote($name).",". $db->quote($phone).", "
