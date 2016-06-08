@@ -6,6 +6,7 @@
     </div>
     <table flex id="ldsTbl">
         <tr>
+            <th>Lead Owner</th>
             <th>Customer Name</th>
             <th>Phone Number</th>
             <th>Address</th>
@@ -18,6 +19,7 @@
         </tr>
 
         <tr ng-repeat='lead in leads' id="{{lead.lid}}">
+            <td ng-bind="lead.user"></td>
             <td ng-bind="lead.name"></td>
             <td ng-bind="lead.phone"></td>
             <td ng-bind="lead.addr"></td>

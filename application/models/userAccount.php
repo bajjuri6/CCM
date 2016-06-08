@@ -14,10 +14,10 @@ class userAccount{
     
   }
   
-  public function addUser($name, $phone, $password, $email, $addr, $lvl, $pan, $aadhaar){
+  public function addUser($name, $phone, $password, $email, $addr, $lvl, $pan, $aadhaar=null){
     $db = $this -> getDB('w', '');
     $UId = md5($db->quote($phone));
-    $checkUser = $this -> checkIfUserNameExists($phone,$pan,$aadhaar);
+    $checkUser = $this -> checkIfUserNameExists($phone,$pan);
     if($checkUser == 1)
       return '{"status":0,"msg":"Duplicate phone, PAN or Aadhaar number found. Cannot add user."}';
     else {
@@ -55,11 +55,11 @@ class userAccount{
     }
   }
     
-  public function checkIfUserNameExists($userId, $pan, $aadhaar){
+  public function checkIfUserNameExists($userId, $pan){
     $db = $this -> getDB('r', '');
     $temp = $db->query("SELECT _tbl_usr_ccmid FROM _table_user_ccm WHERE "
                       . "_tbl_usr_ccmid = ".$db->quote($userId)." OR _tbl_usr_pan = "
-                      . $db->quote($pan). " OR _tbl_usr_aadhaar = ". $db->quote($aadhaar));
+                      . $db->quote($pan));
     $result = $temp->fetch(PDO::FETCH_ASSOC);
 
     if($result) return 1;

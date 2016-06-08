@@ -111,9 +111,8 @@
                 </md-input-container>
                 <md-input-container class="md-block">
                     <label>Customer Aadhaar Number</label>
-                    <input type="text"  required name="customer_aadhaar" ng-model="cust.aadhaar">
+                    <input type="text"  name="customer_aadhaar" ng-model="cust.aadhaar">
                     <div ng-messages="leadsfrm.customer_aadhaar.$error">
-                        <div ng-message="required">Customer Aadhaar Number is required.</div>
                     </div>
                 </md-input-container>
                 <md-input-container layout layout-align="center center">
