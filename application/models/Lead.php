@@ -46,7 +46,7 @@ class Lead{
                       . " _tbl_lead_cust_phone as phone, _tbl_lead_cust_occupation as occupation, "
                       . " _tbl_lead_cust_occupation_sub as occupationdetail, _tbl_lead_cust_biz as biz, "
                       . " _tbl_lead_cust_income as income, _tbl_lead_cust_pan as pan, _tbl_lead_cust_aadhaar as aadhaar, "
-                      . " _tbl_lead_status as sts, _tbl_lead_ref_id as user, _tbl_lead_added_on as time FROM _table_leads_ccm ORDER BY _tbl_lead_added_on LIMIT 0,20");
+                      . " _tbl_lead_status as sts, _tbl_lead_ref_id as user, _tbl_lead_added_on as time FROM _table_leads_ccm ORDER BY _tbl_lead_added_on");
       $r = $tmp->fetchAll(PDO::FETCH_ASSOC);
       return '{"status": 1, "msg": '.json_encode($r).'}';
     }else {
